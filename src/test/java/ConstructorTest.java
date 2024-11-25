@@ -26,6 +26,7 @@ public class ConstructorTest {
     public void successPassToSaucesChapter() {
         MainPage objMainPage = new MainPage(driver);
         objMainPage.open();
+        objMainPage.clickFillingsChapter();
         objMainPage.clickSaucesChapter();
         assertTrue(objMainPage.saucesHeaderIsVisible());
     }
