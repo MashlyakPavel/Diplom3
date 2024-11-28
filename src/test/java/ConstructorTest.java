@@ -44,7 +44,6 @@ public class ConstructorTest {
     @Test
     @DisplayName("Перейти к разделу о булочках")
     public void successPassToBunsChapter() {
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         MainPage objMainPage = new MainPage(driver);
         objMainPage.open();
         objMainPage.clickFillingsChapter();
