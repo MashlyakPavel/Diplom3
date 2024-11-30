@@ -6,9 +6,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import pageobject.MainPage;
 
-import java.util.concurrent.TimeUnit;
-
-import static driver.Driver.createWebDriver;
+import static drivers.Driver.getDriver;
 import static org.junit.Assert.assertTrue;
 
 public class ConstructorTest {
@@ -17,7 +15,9 @@ public class ConstructorTest {
 
     @Before
     public void setUp() {
-        driver = createWebDriver();
+        // Указываем браузер через параметр, например "chrome" или "yandex"
+        String browser = System.getProperty("browser", "chrome");
+        driver = getDriver(browser);
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
     }
 
@@ -26,19 +26,17 @@ public class ConstructorTest {
     public void successPassToSaucesChapter() {
         MainPage objMainPage = new MainPage(driver);
         objMainPage.open();
-        objMainPage.clickFillingsChapter();
         objMainPage.clickSaucesChapter();
-        assertTrue(objMainPage.saucesHeaderIsVisible());
+        assertTrue("Заголовок раздела о соусах не отображается", objMainPage.saucesHeaderIsVisible());
     }
 
     @Test
     @DisplayName("Перейти к разделу о начинках")
     public void successPassToFillingsChapter() {
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         MainPage objMainPage = new MainPage(driver);
         objMainPage.open();
         objMainPage.clickFillingsChapter();
-        assertTrue(objMainPage.fillingsHeaderIsVisible());
+        assertTrue("Заголовок раздела о начинках не отображается", objMainPage.fillingsHeaderIsVisible());
     }
 
     @Test
@@ -48,11 +46,13 @@ public class ConstructorTest {
         objMainPage.open();
         objMainPage.clickFillingsChapter();
         objMainPage.clickBunsChapter();
-        assertTrue(objMainPage.bunsHeaderIsVisible());
+        assertTrue("Заголовок раздела о булочках не отображается", objMainPage.bunsHeaderIsVisible());
     }
 
     @After
-    public void after() {
-        driver.quit();
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

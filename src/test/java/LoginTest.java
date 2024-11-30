@@ -11,7 +11,7 @@ import pageobject.RegistrationPage;
 
 import java.util.concurrent.TimeUnit;
 
-import static driver.Driver.createWebDriver;
+import static drivers.Driver.createWebDriver;
 import static org.junit.Assert.assertTrue;
 
 public class LoginTest {
