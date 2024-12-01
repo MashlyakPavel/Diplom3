@@ -8,6 +8,7 @@ public class MainPage {
     private final WebDriver driver;
     public static final String MAIN_PAGE_URL = "https://stellarburgers.nomoreparties.site/";
     private By enterButton = By.xpath(".//div/main/section[2]/div/button[text()='Войти в аккаунт']");
+    private By activeSaucesTab = By.xpath("//span[text()='Соусы' and contains(@class, 'active')]");
 
     private By privateOfficeButton = By.xpath(".//div/header/nav/a/p[text()='Личный Кабинет']");
 
@@ -26,52 +27,69 @@ public class MainPage {
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
+
     @Step("Открытие главной страницы")
     public void open() {
         driver.get(MAIN_PAGE_URL);
     }
+
     @Step("Клик на кнопку Войти в аккаунт")
     public void clickEnterButton() {
         driver.findElement(enterButton).click();
     }
+
     @Step("Клик на кнопку Личный Кабинет")
     public void clickPrivateOfficeButton() {
         driver.findElement(privateOfficeButton).click();
     }
+
     @Step("Клик на кнопку Конструктор")
     public void clickConstructorButton() {
         driver.findElement(constructorButton).click();
     }
+
     @Step("Клик на логотип StellarBurgers")
     public void clickLogoStellarBurgers() {
         driver.findElement(logoStellarBurgers).click();
     }
+
     @Step("Виден ли конструктор")
     public boolean constructorIsVisible() {
         return driver.findElement(constructorName).isDisplayed();
     }
+
     @Step("Виден ли заголовок Булки")
     public boolean bunsHeaderIsVisible() {
         return driver.findElement(bunsHeader).isDisplayed();
     }
+
     @Step("Виден ли заголовок Соусы")
     public boolean saucesHeaderIsVisible() {
         return driver.findElement(saucesHeader).isDisplayed();
     }
+
     @Step("Виден ли заголовок Начинки")
     public boolean fillingsHeaderIsVisible() {
         return driver.findElement(fillingsHeader).isDisplayed();
     }
+
     @Step("Клик на раздел Булки")
     public void clickBunsChapter() {
         driver.findElement(bunsChapter).click();
     }
+
     @Step("Клик на раздел Соусы")
     public void clickSaucesChapter() {
         driver.findElement(saucesChapter).click();
     }
+
     @Step("Клик на раздел Начинки")
     public void clickFillingsChapter() {
         driver.findElement(fillingsChapter).click();
+    }
+
+    @Step("Виден ли активный раздел Соусы")
+    public boolean isSaucesTabActive() {
+        return driver.findElement(saucesChapter).getAttribute("class").contains("active");
     }
 }

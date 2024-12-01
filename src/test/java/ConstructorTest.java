@@ -28,6 +28,7 @@ public class ConstructorTest {
         objMainPage.open();
         objMainPage.clickSaucesChapter();
         assertTrue("Заголовок раздела о соусах не отображается", objMainPage.saucesHeaderIsVisible());
+        assertTrue("Вкладка 'Соусы' не активна", objMainPage.isSaucesTabActive());
     }
 
     @Test
