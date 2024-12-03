@@ -8,7 +8,7 @@ public class MainPage {
     private final WebDriver driver;
     public static final String MAIN_PAGE_URL = "https://stellarburgers.nomoreparties.site/";
     private By enterButton = By.xpath(".//div/main/section[2]/div/button[text()='Войти в аккаунт']");
-    private By activeSaucesTab = By.xpath("//span[text()='Соусы' and contains(@class, 'active')]");
+    private By activeSaucesTab = By.xpath("//li[contains(@class, 'tab') and contains(@class, 'tab_active')]");
 
     private By privateOfficeButton = By.xpath(".//div/header/nav/a/p[text()='Личный Кабинет']");
 
@@ -90,6 +90,6 @@ public class MainPage {
 
     @Step("Виден ли активный раздел Соусы")
     public boolean isSaucesTabActive() {
-        return driver.findElement(saucesChapter).getAttribute("class").contains("active");
+        return driver.findElement(activeSaucesTab).getAttribute("class").contains("active");
     }
 }
