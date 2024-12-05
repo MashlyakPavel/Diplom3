@@ -3,19 +3,21 @@ package pageobject;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import com.codeborne.selenide.SelenideElement;
 
 public class MainPage {
     private final WebDriver driver;
     public static final String MAIN_PAGE_URL = "https://stellarburgers.nomoreparties.site/";
     private By enterButton = By.xpath(".//div/main/section[2]/div/button[text()='Войти в аккаунт']");
-    private By activeSaucesTab = By.xpath("//li[contains(@class, 'tab') and contains(@class, 'tab_active')]");
-
     private By privateOfficeButton = By.xpath(".//div/header/nav/a/p[text()='Личный Кабинет']");
-
     private By constructorButton = By.xpath(".//header/nav/ul/li[1]/a/p[text()='Конструктор']");
-
     private By constructorName = By.xpath(".//section[1]/h1[text()='Соберите бургер']");
-
+    // Используем SelenideElement для активной вкладки
+    @FindBy(how = How.XPATH, using = "//div[contains(@class , 'current')]/span")
+    private SelenideElement selectedTab;
     private By logoStellarBurgers = By.xpath(".//header/nav/div/a");
     private By bunsChapter = By.xpath(".//span[text()='Булки']");
     private By saucesChapter = By.xpath(".//span[text()='Соусы']");
@@ -25,7 +27,9 @@ public class MainPage {
     private By fillingsHeader = By.xpath(".//h2[text()='Начинки']");
 
     public MainPage(WebDriver driver) {
+
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     @Step("Открытие главной страницы")
@@ -90,6 +94,7 @@ public class MainPage {
 
     @Step("Виден ли активный раздел Соусы")
     public boolean isSaucesTabActive() {
-        return driver.findElement(activeSaucesTab).getAttribute("class").contains("active");
+        // Проверяем, содержит ли активная вкладка класс 'active' или 'current'
+        return selectedTab.getAttribute("class").contains("active") || selectedTab.getAttribute("class").contains("current");
     }
 }
